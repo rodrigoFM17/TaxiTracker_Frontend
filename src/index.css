@@ -1,0 +1,31 @@
+:root {
+  --y-100: #FDF1D6 ;
+  --y-200: #FCE2AD ; 
+  --y-300: #FAD483 ; 
+  --y-400: #F9C55A ; 
+  --y-500: #F7B731 ; 
+  --y-600: #C69227 ; 
+  --y-700: #946E1D ; 
+  --y-800: #634914 ; 
+  --y-900: #31250A ; 
+
+  --g-100: #E1E1E1 ;
+  --g-200: #C2C2C2 ;
+  --g-300: #A4A4A4 ;
+  --g-400: #858585 ;
+  --g-500: #676767 ;
+  --g-600: #525252 ;
+  --g-700: #3E3E3E ;
+  --g-800: #292929 ;
+  --g-900: #151515 ;
+
+  font-family: "Fugaz One";
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url("https://unpkg.com/leaflet@1.9.3/dist/leaflet.css");

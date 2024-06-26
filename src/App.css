@@ -1,0 +1,37 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#map {
+  margin: 0 auto;
+  width: 80%;
+  height: 80vh;
+  border: 1px solid black;
+}
+
+body {
+  background-color: var(--g-600);
+
+  background-image: url('../public/cuadricula.png');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+}
+
+input, button {
+  font-family: "Fugaz One";
+  font-size: 1.2em;
+  border-radius: 5px;
+  padding: .5em;
+  border: none;
+}
+
+button {
+  background-color: var(--y-500);
+  color: white;
+  cursor: pointer;
+  width: 10em;
+  margin: 0 auto;
+}
