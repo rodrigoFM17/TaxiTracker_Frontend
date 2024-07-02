@@ -4,8 +4,14 @@
     background-color: var(--y-500);
 }
 
+.kit-card h3 {
+    margin: .5em 0;
+    color: var(--g-700);
+}
+
 .kit-card > div {
     background-color: var(--g-800);
+    border-radius: 5px;
     display: grid;
     padding: 1em;
     gap: 1em;
@@ -37,12 +43,18 @@
     background-color: var(--g-600);
 }
 
+#gps-button .container-images {
+    width: 4em;
+}
+
 #driver-button{
     grid-area: driver;
+    background-color: var(--y-100);
 }
 
 #chart-button{
     grid-area: charts;
+    background-color: var(--y-300);
 }
 
 #configure-button{

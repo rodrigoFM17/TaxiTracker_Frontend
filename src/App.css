@@ -1,8 +1,9 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  padding: 2em;
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 #map {
@@ -14,10 +15,10 @@
 
 body {
   background-color: var(--g-600);
-
   background-image: url('../public/cuadricula.png');
   background-position: bottom right;
   background-repeat: no-repeat;
+  color: white;
 }
 
 input, button {
@@ -28,10 +29,21 @@ input, button {
   border: none;
 }
 
+input[type="text"]{
+  background-color: var(--y-100);
+  color: var(--y-500);
+  outline: none;
+}
+
 button {
   background-color: var(--y-500);
   color: white;
   cursor: pointer;
   width: 10em;
   margin: 0 auto;
+}
+
+button:hover {
+  scale: 1.03;
+  transition: 500ms scale ease-in-out;
 }

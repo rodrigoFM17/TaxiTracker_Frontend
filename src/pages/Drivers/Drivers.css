@@ -1,0 +1,130 @@
+.container-images {
+    width: 50%;
+    max-width: 70px;
+    min-width: 35px;
+}
+
+.drivers {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.driver-card {
+    padding: 1em;
+    display: grid;
+    border-radius: 5px;
+    grid-template-areas: 
+    "foto foto foto"
+    "nombre nombre nombre"
+    "placa placa placa"
+    "editar quitar estadisticas";
+    gap: 1em;
+}
+
+.driver-card img, .driver-card .default-image {
+    grid-area: foto;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 10000px;
+}
+
+.default-image {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.driver-card h3 {
+    grid-area: nombre;
+    place-content: center;
+}
+
+.driver-card span {
+    grid-area: placa;
+    padding: .5em 0;
+    width: 100%;
+    background-color: var(--g-800);
+    border-radius: 5px;
+    color: var(--y-200);
+    font-size: 2em;
+    place-content: center;
+}
+
+.driver-card button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#edit{
+    grid-area: editar;
+    background-color: var(--y-900);
+}
+#chart {
+    grid-area: estadisticas;
+    background-color: var(--y-500);
+}
+#minus-user{
+    grid-area: quitar;
+    background-color: var(--g-900);
+}
+
+#plus-button {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+#plus-button .container-images {
+    width: 50px;
+}
+
+.form-add-user{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    
+}
+
+.form-add-user > div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1em;
+    & button{
+        width: 100%;
+        background-color: var(--g-800);
+        color: var(--y-500);
+    }
+
+    & #cancelar {
+        background-color: var(--y-500);
+        color: var(--y-200);
+    }
+}
+.modal-remove-user{
+    width: 60%;
+}
+.modal-remove-user > div, .modal-edit-user > div {
+    margin-top: 1em;
+    display: flex;
+    gap: 1em;
+
+    & button:nth-child(2){
+        background-color: var(--g-800);
+        color: var(--y-500);
+    }
+}
+
+.modal-edit-user{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

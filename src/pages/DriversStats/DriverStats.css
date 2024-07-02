@@ -1,0 +1,33 @@
+.driver-stats{
+    color: white;
+}
+
+.driver-grade {
+    width: 100%;
+    position: relative;
+}
+
+.driver-grade div:first-child {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.driver-grade .container-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-info span:first-child {
+    font-size: 8em ;
+}
+
