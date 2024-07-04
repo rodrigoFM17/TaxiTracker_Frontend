@@ -4,8 +4,14 @@
     flex-direction: column;
     gap: 2em;
     margin-bottom: 2em;
+    position: relative;
 
-    & > img {
+    & div {
+        display: flex;
+        align-items: center;
+    }
+
+    & > div > img {
         width: 50%;
         max-width: 200px;
         margin: 0 auto;
@@ -15,4 +21,11 @@
         font-size: 1.4em;
     }
 
+    & input[type="image"]{
+        width: 15%;
+        min-width: 50px;
+        max-width: 80px;
+        position: absolute;
+        left: 0;
+    }
 }

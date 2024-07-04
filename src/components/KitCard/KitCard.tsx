@@ -1,7 +1,4 @@
 import './KitCard.css'
-import gpsMarker from '../../../public/location-dot-solid.svg'
-import charts from '../../../public/chart-simple-solid.svg'
-import configure from '../../../public/gears-solid.svg'
 import Driver from '../Driver'
 import Chart from '../Chart'
 import Gears from '../Gears'
@@ -14,16 +11,16 @@ export default function KitCard () {
         <article className="kit-card">
             <h3>Kit 1</h3>
             <div>
-                <button id='gps-button' onClick={() => navigate('/gps/kitId')}>
+                <button id='gps-button' onClick={() => navigate('/kit/1/localizacion')}>
                     <GPSMarker color='#F7B731' className='container-images' />
                 </button>
-                <button id='driver-button' onClick={() => navigate('/conductores')}>
+                <button id='driver-button' onClick={() => navigate('/kit/1/conductores')}>
                     <Driver color='#31250A' className='container-images' />
                 </button>
-                <button id='chart-button' onClick={() => navigate('/estadisticas/kitId')}>
+                <button id='chart-button' onClick={() => navigate('/kit/1/estadisticas')}>
                     <Chart color='#634914' className='container-images' />
                 </button>
-                <button id='configure-button' onClick={() => navigate('/configuracion/kitId')}>
+                <button id='configure-button' onClick={() => navigate('/kit/1/configuracion')}>
                     <Gears color='#FDF1D6' className='container-images'/>
                 </button>
             </div>

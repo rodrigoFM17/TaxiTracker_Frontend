@@ -1,10 +1,15 @@
 .driver-stats{
     color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .driver-grade {
     width: 100%;
     position: relative;
+    background-color: var(--g-600);
+    border-radius: 50%;
 }
 
 .driver-grade div:first-child {
@@ -31,3 +36,73 @@
     font-size: 8em ;
 }
 
+.driver-plate img {
+    width: 20%;
+    max-width: 100px;
+    min-width: 50px;
+}
+.driver-plate {
+    width: 100%;
+    background-color: var(--g-700);
+    border-radius: var(--radius);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.driver-plate span:nth-child(2) {
+    font-size: 3em;
+    color: var(--y-500);
+}
+
+.driver-plate span:nth-child(3){
+    font-size: .8em;
+    color: var(--y-100);
+}
+
+.card-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    gap: 0;
+    border-radius: var(--radius);
+}
+
+.card-info > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+}
+
+.card-info span:first-child {
+    font-size: 10vmax;
+    text-align: right;
+}
+
+.card-info div > img{
+    width: 10vmax;
+}
+
+.travels-per-day {
+    background-color: var(--g-900);
+}
+
+.crashes {
+    background-color: var(--y-500);
+    color: var(--g-900);
+}
+
+.crashes > span{
+    color: var(--y-100);
+}
+
+.stars {
+    color: var(--y-100);
+}

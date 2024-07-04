@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react"
-import { Map, tileLayer } from 'leaflet'
+import { Map, tileLayer, marker } from 'leaflet'
+import './KitLocation.css'
+import arrow from '../../../public/arrow-left-solid.svg'
+import logo from '../../../public/logo_taxi.png'
 
 
 export default function KitLocation () {
@@ -13,9 +16,10 @@ export default function KitLocation () {
       mapInit.current = true
       setMap(
         new Map('map',{
-          center: [-33.8670, 151.21],
-          zoom:15,
-        }).setView([-33.8670, 151.21])
+          center: [16.7548, -93.1074],
+          zoom:14,
+          minZoom: 13,
+        }).setView([16.7548, -93.1074])
       )
     }
     if(map){
@@ -23,6 +27,13 @@ export default function KitLocation () {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map)
+
+      const kitMarker = marker([16.7548, -93.1074]).addTo(map);
+
+      setTimeout(() => {
+        kitMarker.setLatLng([16.7558, -93.1084])
+      }, 5000)
+
     }
 
   },[mapInit, map])
@@ -30,9 +41,14 @@ export default function KitLocation () {
 
   return (
     <>
+      <header className="map-header">
+        <input type="image" src={arrow} alt="regresar" onClick={() => history.back()}/>
+        <img src={logo} alt="logo TaxiTracker" />
+      </header>
       <div id='map'>
-
       </div>
+
+
     </>
   )
 }

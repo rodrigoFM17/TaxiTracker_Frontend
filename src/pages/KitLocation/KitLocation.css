@@ -1,0 +1,29 @@
+#map {
+    margin: 0 auto;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+  }
+
+.map-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map-header img{
+    width: 30%;
+    max-width: 120px;
+}
+
+.map-header input {
+    width: 15%;
+    max-width: 50px;
+    background-color: var(--g-600);
+}

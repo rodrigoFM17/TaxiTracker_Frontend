@@ -6,13 +6,6 @@
   overflow-y: auto;
 }
 
-#map {
-  margin: 0 auto;
-  width: 80%;
-  height: 80vh;
-  border: 1px solid black;
-}
-
 body {
   background-color: var(--g-600);
   background-image: url('../public/cuadricula.png');

@@ -31,7 +31,7 @@ export default function DriverCard ({imageUrl, name, lastName, id, unity}: drive
         <button id='minus-user' onClick={() => setRemoveUser(!removeUser)}>
             <UserMinus color='#FCE2AD' className='container-images' />
         </button>
-        <button id='chart' onClick={() => navigate(`/conductores/${id}/estadisticas`)}>
+        <button id='chart' onClick={() => navigate(`/kit/1/conductores/${id}/estadisticas`)}>
             <Chart color='#151515' className='container-images'/>
         </button>
         {removeUser && (
@@ -51,7 +51,7 @@ export default function DriverCard ({imageUrl, name, lastName, id, unity}: drive
             <Modal>
                 <form className="modal-edit-user">
                     <h3>Editar Usuario</h3>
-                    <InputImageFile id='driver-photo' imageUrl={""}/>
+                    <InputImageFile id='driver-photo' imageUrl={imageUrl}/>
                     <input type="text" placeholder={name}/>
                     <input type="text" placeholder={lastName} />
                     <input type="text" placeholder={unity} />
