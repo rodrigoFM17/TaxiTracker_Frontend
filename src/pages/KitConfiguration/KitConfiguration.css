@@ -1,0 +1,41 @@
+.kit-configuration {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    height: 75vh;
+    gap: 2em;
+}
+
+.kit-configuration form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.kit-configuration form > div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1em;
+}
+
+.kit-configuration form input, .kit-configuration form button {
+    width: 100%;
+}
+
+.kit-configuration form button {
+    display: flex;
+    place-content: center;
+}
+
+.kit-configuration .container-save-button{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.deleted {
+    opacity: .50;
+}

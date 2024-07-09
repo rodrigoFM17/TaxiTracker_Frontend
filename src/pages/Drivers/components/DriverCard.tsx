@@ -1,4 +1,3 @@
-import Driver from '../../../components/Driver'
 import Chart from '../../../components/Chart'
 import Edit from '../../../components/Edit'
 import UserMinus from '../../../components/UserMinus'

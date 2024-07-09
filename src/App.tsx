@@ -7,6 +7,7 @@ import Drivers from './pages/Drivers/Drivers'
 import DriverStats from './pages/DriversStats/DriversStats'
 import KitLocation from './pages/KitLocation/KitLocation'
 import UserValoration from './pages/UserValoration/UserValoration'
+import KitConfiguration from './pages/KitConfiguration/KitConfiguration'
 
 function App() {
 
@@ -41,6 +42,10 @@ function App() {
         <Route
         component={UserValoration}
         path={'/kit/:kitId/valoracion'}
+        />
+        <Route
+        component={KitConfiguration}
+        path={'/kit/:kitId/configuracion'}
         />
       </Router>
     </>
