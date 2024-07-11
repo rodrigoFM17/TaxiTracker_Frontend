@@ -6,6 +6,7 @@ import Home from './pages/Home/Home'
 import Drivers from './pages/Drivers/Drivers'
 import DriverStats from './pages/DriversStats/DriversStats'
 import KitLocation from './pages/KitLocation/KitLocation'
+import KitStats from './pages/KitStats/KitStats'
 import UserValoration from './pages/UserValoration/UserValoration'
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
         <Route
         component={KitLocation}
         path={"/kit/:kitId/localizacion"}
+        />
+        <Route
+        component={KitStats}
+        path={"/kit/:kitId/estadisticas"}
         />
         <Route
         component={Home}
