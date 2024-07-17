@@ -6,6 +6,7 @@ import Home from './pages/Home/Home'
 import Drivers from './pages/Drivers/Drivers'
 import DriverStats from './pages/DriversStats/DriversStats'
 import KitLocation from './pages/KitLocation/KitLocation'
+import KitStats from './pages/KitStats/KitStats'
 import UserValoration from './pages/UserValoration/UserValoration'
 import KitConfiguration from './pages/KitConfiguration/KitConfiguration'
 import AddDriver from './pages/AddDriver/AddDriver'
@@ -41,6 +42,10 @@ function App() {
           <Route
           component={AddDriver}
           path={"/kit/:kitId/conductores/agregar"}
+          />
+          <Route
+          component={KitStats}
+          path={"/kit/:kitId/estadisticas"}
           />
           <Route
           component={DriverStats}

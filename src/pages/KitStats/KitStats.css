@@ -1,0 +1,43 @@
+.driver-stats{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.black-container {
+    background-color: var(--g-800);
+    border-radius: var(--radius);
+    margin-bottom: 2em;
+}
+
+.yellow-container {
+    background-color: var(--y-500);
+    border-radius: var(--radius);
+    margin-bottom: 2em;
+}
+
+.pie-container {
+    margin-bottom: 2em;
+}
+
+.kit-title {
+    margin-bottom: 1em;
+}
+
+.slider {
+    display: inline-flex;
+    margin-inline: 4em 
+}
+
+.arrow-button {
+    border-radius: 50px;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
