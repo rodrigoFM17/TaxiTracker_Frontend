@@ -1,0 +1,10 @@
+.confirm-buttons {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1em;
+}
+
+.confirm-buttons button {
+    width: 100%;
+}

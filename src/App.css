@@ -22,7 +22,7 @@ input, button {
   border: none;
 }
 
-input[type="text"]{
+input{
   background-color: var(--y-100);
   color: var(--y-500);
   outline: none;
@@ -47,3 +47,6 @@ button:hover {
   color: var(--y-500);
 }
 
+section {
+  min-height: 100vh;
+}

@@ -1,0 +1,46 @@
+.add-driver {
+    height: 95vh;
+}
+
+.form-add-user .container-pin {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1em;
+
+    & > button{
+        width: 100%;
+    }
+    & #pin{
+        width: 100%;
+    }
+}
+
+.form-add-user{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;    
+}
+
+.form-add-user .container-buttons {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1em;
+    & button{
+        width: 100%;
+        background-color: var(--g-800);
+        color: var(--y-500);
+    }
+
+    & #cancelar {
+        background-color: var(--y-500);
+        color: white;
+    }
+}
+
+.form-add-user > span {
+    font-size: .6em;
+    margin: -1em;
+    padding: 0;
+}

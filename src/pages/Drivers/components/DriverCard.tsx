@@ -6,22 +6,23 @@ import { useState } from 'react'
 import Modal from '../../../components/Modal/Modal'
 import InputImageFile from '../../../components/InputImageFile/InputImageFile'
 import DriverImage from '../../../components/DriverImage/DriverImage'
-type driver = {
-    imageUrl: string,
-    name: string,
-    id:string,
-    unity: string,
-    lastName:string
+import { Driver } from '../../../models/Driver/Driver'
+import { deleteDriver } from '../../../services/Driver'
+
+const fetchDeleteDriver = async(driverId: string) => {
+    const response = await deleteDriver(driverId)
+    console.log(response)
 }
 
-export default function DriverCard ({imageUrl, name, lastName, id, unity}: driver) {
+
+export default function DriverCard ({image, name, lastName, id}: Driver) {
 
     const [removeUser, setRemoveUser] = useState(false);
     const [editUser, setEditUser] = useState(false)
 
     return <article className="driver-card">
 
-        <DriverImage imageUrl={imageUrl} name={name} />
+        <DriverImage imageUrl={image} name={name} />
         <h3>{`${name} ${lastName}`}</h3>
         <span>{unity}</span>
         <button id='edit' onClick={() => setEditUser(!editUser)}>
@@ -35,13 +36,15 @@ export default function DriverCard ({imageUrl, name, lastName, id, unity}: drive
         </button>
         {removeUser && (
             <Modal>
-                <form className='modal-remove-user'>
+                <form className='modal-remove-user' onSubmit={() => fetchDeleteDriver(id)}>
                     <h3>¿Estas seguro que quieres eliminar este usuario? </h3>
                     <div>
                         <button type='button' onClick={() => setRemoveUser(false)}>
                             No
                         </button>
-                        <button>Si</button>
+                        <button type='submit'>
+                            Si
+                        </button>
                     </div>
                 </form>
             </Modal>

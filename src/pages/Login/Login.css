@@ -18,8 +18,19 @@
     width: 90%;
     display: flex;
     flex-direction: column;
+    gap: 2em;
     justify-content: space-around;
-    height: 50%;
+}
+
+.login-form > span {
+    cursor: pointer;
+    color: var(--y-500);
+    text-decoration: underline;
+}
+
+.login-form > .error-message {
+    color: red;
+    text-decoration: none;
 
 }
 

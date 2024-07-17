@@ -5,3 +5,14 @@
     gap: 2em;
 }
 
+.home > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-add-user{
+    width: 100%;
+}
+

@@ -9,14 +9,13 @@ type props = {
 export default function InputImageFile ({id, imageUrl}:props) {
 
     return <>
-    <input type='file' accept='image/*' className='input-image' id={id}>
-    </input>
+    <input type='file' accept='image/*' name='image' className='input-image' id={id}/>
     <label htmlFor={id}>
         {
             imageUrl ?
             <img src={imageUrl} alt="imagen del conductor" />
             :
-            <Driver color='#F9C55A' className='' />
+            <Driver color='#292929' className='' />
         }
 
         <span className='hover-message'>

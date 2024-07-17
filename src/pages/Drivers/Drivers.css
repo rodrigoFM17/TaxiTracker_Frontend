@@ -85,30 +85,7 @@
     width: 50px;
 }
 
-.form-add-user{
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
 
-    
-}
-
-.form-add-user > div {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 1em;
-    & button{
-        width: 100%;
-        background-color: var(--g-800);
-        color: var(--y-500);
-    }
-
-    & #cancelar {
-        background-color: var(--y-500);
-        color: var(--y-200);
-    }
-}
 .modal-remove-user{
     width: 60%;
 }

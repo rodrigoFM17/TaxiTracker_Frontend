@@ -4,13 +4,14 @@ import Gears from "../../components/Gears";
 import { useState } from "react";
 import Edit from "../../components/Edit";
 import UserMinus from "../../components/UserMinus";
-import ConfirmModal from "../../components/ConfirmModal/ConfirmModal";
 import Modal from "../../components/Modal/Modal";
 import Driver from "../../components/Driver";
 import XMark from "../../components/XMark";
 import EditButton from "./components/EditButton";
 import EditInput from "./components/EditInput";
 import DriverItem from "./components/Driver";
+import { updateKit } from "../../services/Kit";
+import { useParams } from "wouter";
 
 const KitConfig = {
     name: "kit 1",
@@ -33,13 +34,15 @@ const changesToDo:changes = {
     driversToDelete: []
 }
 
+
 export default function KitConfiguration () {
 
     const [editName, setEditName] = useState<boolean>(false)
     const [editUnity, setEditUnity] = useState<boolean>(false)
     const [confirm, setConfirm] = useState<boolean>(false)
-    
-    const applyChanges = () => {
+    const {kitId} = useParams()
+
+    const applyChanges = async() => {
         const newName = document.querySelector("#name") as HTMLInputElement
         const newUnity = document.querySelector("#unity") as HTMLInputElement
 
@@ -51,6 +54,8 @@ export default function KitConfiguration () {
         }
 
         console.log(changesToDo)
+        const response = await updateKit(kitId, changesToDo)
+        console.log(response)
     }
 
     return <>
@@ -99,7 +104,8 @@ export default function KitConfiguration () {
                     </button>
                 </div>
             </form>
-            {
+            <ConfirmModal confirm={confirm} onAccept={applyChanges} onCancel={setConfirm} />
+            {/* {
                 confirm && <Modal>
                     <form>
                         <span>¿Guardar los cambios?</span>
@@ -111,8 +117,25 @@ export default function KitConfiguration () {
                         </button>
                     </form>
                 </Modal>
-            }
+            } */}
 
         </section>
     </>
+}
+
+
+const ConfirmModal = ({confirm, onAccept, onCancel}: any) => {
+
+
+    return (confirm && <Modal>
+    <form>
+        <span>¿Guardar los cambios?</span>
+        <button onClick={() => onCancel(false)}>
+            No
+        </button>
+        <button className="button-invert" onClick={() => onAccept()}>
+            Si
+        </button>
+    </form>
+</Modal>)
 }
