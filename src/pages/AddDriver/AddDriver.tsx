@@ -1,33 +1,48 @@
+import { useParams } from "wouter";
 import InputImageFile from "../../components/InputImageFile/InputImageFile";
 import LogoHeader from "../../components/LogoHeader/LogoHeader";
+import { createDriver } from "../../services/Driver";
 import './AddDriver.css'
+import { generatePin } from "./utils/generatePin";
 
-const generatePin = () => {
-    const pinInput = document.querySelector("#pin") as HTMLInputElement
-    let randomPin = Math.round(Math.random() * 10000).toString()
-    if(randomPin.length < 4){
-        const zerosToAdd = 4 - randomPin.length
-        for (let i =1; i<= zerosToAdd;i++){
-            randomPin = "0" + randomPin
-        }
-    }else if (randomPin.length > 4){
-        randomPin.substring(0,3)
+const fetchAddDriver = async(kitId: string, e) => {
+    e.preventDefault()
+    const image = document.querySelector("#driver-photo") as HTMLInputElement
+    const name = document.querySelector("#name") as HTMLInputElement
+    const lastName = document.querySelector("#lastName") as HTMLInputElement
+    const pin = document.querySelector("#pin") as HTMLInputElement
+    console.log(image.files)
+
+    if(image.files){
+        const newDriver = new FormData
+        newDriver.append("kit_id", kitId)
+        newDriver.append("name", name.value)
+        newDriver.append("last_name", lastName.value)
+        newDriver.append("pin", pin.value)
+        newDriver.append("image", image.files[0])
+        console.log(newDriver)
+
+        const response = await createDriver(newDriver)
+        console.log(response)
+        if(response.status == 'success')
+            history.back()
     }
-    pinInput.value = randomPin   
+
+
 }
+
+
 export default function AddDriver () {
 
-    const fetchAddDriver = () => {
-
-    }
+    const {kitId} = useParams()
 
     return <section className="add-driver">
         <LogoHeader title="agregar conductor" />
 
-        <form className="form-add-user" onSubmit={fetchAddDriver}>
+        <form className="form-add-user" onSubmit={(e) => fetchAddDriver(kitId ? kitId : "", e)} encType="multipart/form-data">
         <InputImageFile id="driver-photo" imageUrl="" />
-        <input type="text" placeholder="Nombre(s)" required/>
-        <input type="text" placeholder="Apellidos" required/>
+        <input type="text" placeholder="Nombre(s)" id="name" required/>
+        <input type="text" placeholder="Apellidos" id="lastName" required/>
         <div className="container-pin">
             <input 
             type="number" 

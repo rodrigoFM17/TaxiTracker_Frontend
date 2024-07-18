@@ -4,39 +4,50 @@ import UserMinus from '../../../components/UserMinus'
 import { navigate } from 'wouter/use-browser-location'
 import { useState } from 'react'
 import Modal from '../../../components/Modal/Modal'
-import InputImageFile from '../../../components/InputImageFile/InputImageFile'
 import DriverImage from '../../../components/DriverImage/DriverImage'
-import { Driver } from '../../../models/Driver/Driver'
 import { deleteDriver } from '../../../services/Driver'
+import { useParams } from 'wouter'
 
-const fetchDeleteDriver = async(driverId: string) => {
-    const response = await deleteDriver(driverId)
-    console.log(response)
+type props = {
+    image: string,
+    name: string,
+    lastName: string,
+    id: string,
+    unity: string
 }
 
-
-export default function DriverCard ({image, name, lastName, id}: Driver) {
+export default function DriverCard ({image, name, lastName, id, unity}: props) {
 
     const [removeUser, setRemoveUser] = useState(false);
-    const [editUser, setEditUser] = useState(false)
+    const {kitId} = useParams()
+
+    const fetchDeleteDriver = async(e: any) => {
+        e.preventDefault()
+        const response = await deleteDriver(id)
+        console.log(response)
+        setRemoveUser(false)
+        window.location.reload()
+    }
 
     return <article className="driver-card">
 
-        <DriverImage imageUrl={image} name={name} />
+        <div className='container-driver-image'>
+            <DriverImage imageUrl={image} name={name} />
+        </div>
         <h3>{`${name} ${lastName}`}</h3>
         <span>{unity}</span>
-        <button id='edit' onClick={() => setEditUser(!editUser)}>
+        <button id='edit' onClick={() => navigate(`/kit/${kitId}/conductores/${id}/actualizar`)}>
             <Edit color='#F7B731' className='container-images' />
         </button>
         <button id='minus-user' onClick={() => setRemoveUser(!removeUser)}>
             <UserMinus color='#FCE2AD' className='container-images' />
         </button>
-        <button id='chart' onClick={() => navigate(`/kit/1/conductores/${id}/estadisticas`)}>
+        <button id='chart' onClick={() => navigate(`/kit/${kitId}/conductores/${id}/estadisticas`)}>
             <Chart color='#151515' className='container-images'/>
         </button>
         {removeUser && (
             <Modal>
-                <form className='modal-remove-user' onSubmit={() => fetchDeleteDriver(id)}>
+                <form className='modal-remove-user' onSubmit={(e) => fetchDeleteDriver(e)}>
                     <h3>¿Estas seguro que quieres eliminar este usuario? </h3>
                     <div>
                         <button type='button' onClick={() => setRemoveUser(false)}>
@@ -49,21 +60,7 @@ export default function DriverCard ({image, name, lastName, id}: Driver) {
                 </form>
             </Modal>
         )}
-        {editUser && (
-            <Modal>
-                <form className="modal-edit-user">
-                    <h3>Editar Usuario</h3>
-                    <InputImageFile id='driver-photo' imageUrl={imageUrl}/>
-                    <input type="text" placeholder={name}/>
-                    <input type="text" placeholder={lastName} />
-                    <input type="text" placeholder={unity} />
-                    <div>
-                        <button onClick={() => setEditUser(false)}>cancelar</button>
-                        <button>aceptar</button>
-                    </div>
-                </form>
-            </Modal>
-        )}
+        
         
     </article>
 }

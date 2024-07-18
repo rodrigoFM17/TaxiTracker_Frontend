@@ -1,0 +1,9 @@
+.form-edit-driver {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form-edit-driver span {
+    font-size: .6em;
+}

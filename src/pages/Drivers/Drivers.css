@@ -23,12 +23,19 @@
 }
 
 .driver-card img, .driver-card .default-image {
-    grid-area: foto;
-    width: 80%;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     border-radius: 10000px;
+    object-fit: cover;
 }
-
+.driver-card .container-driver-image {
+    grid-area: foto;
+    width: 30vmax;
+    height: 30vmax;
+    margin: 0 auto;
+    display: flex;
+}
 .default-image {
     padding: 10px;
     display: flex;

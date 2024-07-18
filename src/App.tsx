@@ -11,6 +11,7 @@ import UserValoration from './pages/UserValoration/UserValoration'
 import KitConfiguration from './pages/KitConfiguration/KitConfiguration'
 import AddDriver from './pages/AddDriver/AddDriver'
 import { UserContextProvider } from './context/UserContext'
+import EditDriver from './pages/EditDriver/EditDriver'
 
 function App() {
 
@@ -44,12 +45,16 @@ function App() {
           path={"/kit/:kitId/conductores/agregar"}
           />
           <Route
+          component={EditDriver}
+          path={"/kit/:kitId/conductores/:driverId/actualizar"}
+          />
+          <Route
           component={KitStats}
           path={"/kit/:kitId/estadisticas"}
           />
           <Route
           component={DriverStats}
-          path={'/kit/:kitId/conductores/:id/estadisticas'}
+          path={'/kit/:kitId/conductores/:driverId/estadisticas'}
           />
           <Route
           component={UserValoration}

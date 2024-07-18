@@ -5,18 +5,16 @@ export const adaptEndpointToLocalDriver = (driver: EndpointDriver | EndpointDriv
     if(Array.isArray(driver))
         return driver.map(singleDriver => ({
             id: singleDriver.id,
-            kitId: singleDriver.kit_id,
             lastName: singleDriver.last_name,
             name: singleDriver.name,
             pin: singleDriver.pin,
-            image: singleDriver.file
+            image: singleDriver.image
     }))
     else return {
         id: driver.id,
-        kitId: driver.kit_id,
         lastName: driver.last_name,
         name: driver.name,
         pin: driver.pin,
-        image: driver.file
+        image: driver.image
     }
 }

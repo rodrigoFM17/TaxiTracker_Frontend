@@ -1,0 +1,15 @@
+.fieldset-to-edit {
+    width: 100%;
+    gap: 1em;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.fieldset-to-edit input, .fieldset-to-edit button {
+    width: 100%;
+}
+
+.fieldset-to-edit button {
+    display: flex;
+    place-content: center;
+}

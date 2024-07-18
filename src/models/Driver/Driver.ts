@@ -1,6 +1,5 @@
 export class Driver {
     constructor(
-        readonly kitId: string,
         readonly name: string,
         readonly lastName: string,
         readonly image: string,

@@ -5,20 +5,14 @@ import './Home.css'
 import { Kit } from '../../models/Kit/Kit'
 import Plus from '../../components/Plus'
 import ConfirmButtons from '../../components/ConfirmButtons/ConfirmButtons'
-import { addKit, getKits } from '../../services/Kit'
+import { addKit, getKitsByUserId } from '../../services/Kit'
 import UserContext from '../../context/UserContext'
 
 const fetchAddKit = async (userId: string) => {
-    const name = document.querySelector("#name") as HTMLInputElement
-    const unity = document.querySelector("#unity") as HTMLInputElement
-    console.log(userId)
+    const kitLicense = document.querySelector("#kitLicense") as HTMLInputElement
+    console.log(userId, kitLicense.value)
 
-    const response = await addKit({
-        userId: userId, 
-        unity: unity.value,
-        name: name.value,
-    })
-
+    const response = await addKit(userId, kitLicense.value)
     console.log(response)
 }
 
@@ -34,7 +28,7 @@ export default function Home() {
     useEffect(() => {
         
         const fetchData = async () => {
-            const responseKits = await getKits(user.id)
+            const responseKits = await getKitsByUserId(user.id)
             console.log(responseKits)
             if(responseKits.data && Array.isArray(responseKits.data)){
                 setKits(responseKits.data)
@@ -57,8 +51,7 @@ export default function Home() {
             {
                 addKit ? <form className='form-add-user'>
                     <h3>agregar kit</h3>
-                    <input type="text" placeholder='nombre' id='name'/>
-                    <input type="text" placeholder='unidad' id='unity'/>
+                    <input type="text" placeholder='licencia del kit' id='kitLicense'/>
                     <ConfirmButtons onCancel={() => setAdd(false)} onConfirm={() => fetchAddKit(user.id)} />
                 </form>
                 :

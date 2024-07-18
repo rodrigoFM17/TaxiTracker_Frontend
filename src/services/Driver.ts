@@ -4,20 +4,30 @@ import { adaptApiToLocalResponse } from "../adapters/adaptApiToLocalResponse";
 import { Driver } from "../models/Driver/Driver";
 import { EndpointDriver } from "../models/Driver/EndpointDriver";
 import { GeneralFetchResponse } from "../models/GeneralFetchResponse";
-import { apiKitsUrl, deleteMethod, get, post } from "./fetchApi";
+import { apiKitsUrl, deleteMethod, get, patchWithoutJSON, postWithoutJSON } from "./fetchApi";
 
 
 export const getDriversByKitId = async(kitId: string): Promise<GeneralFetchResponse<Driver[] | Driver>> => {
-    const response = await get(apiKitsUrl, `drivers/${kitId}`)
+    const response = await get(apiKitsUrl, `drivers/kit/${kitId}`)
     console.log(response)
     const adaptedResponse = adaptApiToLocalResponse<Driver | Driver[], EndpointDriver>(response, adaptEndpointToLocalDriver)
     return adaptedResponse
 }
 
-export const createDriver = async(kitId: string, driver: Driver): Promise<GeneralFetchResponse<Driver[] | Driver>> => {
-    const adaptedDriver = adaptLocalToEndpointDriver(driver)
-    console.log(adaptedDriver)
-    const response = await post(apiKitsUrl, `drivers/${kitId}`, adaptedDriver)
+export const getDriverById = async(driverId: string): Promise<GeneralFetchResponse<Driver | Driver[]>> => {
+    const response = await get(apiKitsUrl, `drivers/${driverId}`)
+    const adaptedResponse = adaptApiToLocalResponse(response, adaptEndpointToLocalDriver)
+    return adaptedResponse
+}
+
+export const createDriver = async(driver: FormData): Promise<GeneralFetchResponse<Driver[] | Driver>> => {
+    const response = await postWithoutJSON(apiKitsUrl, `drivers`, driver)
+    const adaptedResponse = adaptApiToLocalResponse(response, adaptEndpointToLocalDriver)
+    return adaptedResponse
+}
+
+export const updateDriver = async(driver: FormData, driverId:string): Promise<GeneralFetchResponse<Driver[] | Driver>> => {
+    const response = await patchWithoutJSON(apiKitsUrl, `drivers/${driverId}`, driver)
     const adaptedResponse = adaptApiToLocalResponse(response, adaptEndpointToLocalDriver)
     return adaptedResponse
 }

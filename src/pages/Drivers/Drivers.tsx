@@ -1,31 +1,41 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import Plus from "../../components/Plus";
 import './Drivers.css'
 import DriverCard from "./components/DriverCard";
-import ModalAddUser from "./components/ModalAddUser";
-
 import { Driver } from "../../models/Driver/Driver";
-import UserContext from "../../context/UserContext";
 import { getDriversByKitId } from "../../services/Driver";
 import { useParams } from "wouter";
 import { navigate } from "wouter/use-browser-location";
+import { Kit } from "../../models/Kit/Kit";
+import { getKit } from "../../services/Kit";
 
 export default function Drivers () {
 
     
     const [drivers, setDrivers] = useState<Driver[]>([])
-    const {user} = useContext(UserContext)
+    const [kit, setKit] = useState<Kit>()
     const {kitId} = useParams()
 
     useEffect(() => {
 
         const fetchData = async() => {
-            const res = await getDriversByKitId(user.id)
+            const res = await getDriversByKitId(kitId ? kitId : "")
+            if(res.data && Array.isArray(res.data))
+            setDrivers(res.data)
             console.log(res)
         }
         fetchData()
-    })
+
+        const fetchkit = async() => {
+            const response = await getKit(kitId ? kitId : "")
+            if(response.data && Array.isArray(response.data)){
+                setKit(response.data[0])
+                console.log(response)
+            }
+        }
+        fetchkit()
+    }, [])
 
     return <>
         <LogoHeader title="Conductores" />
@@ -36,8 +46,8 @@ export default function Drivers () {
                     image={driver.image}
                     name={driver.name}
                     lastName={driver.lastName}
-                    unity=""
-                    id={driver.id} 
+                    id={driver.id ? driver.id : ""}
+                    unity={kit ? kit.unity : ""} 
                     />
                 ))
             }
@@ -45,14 +55,12 @@ export default function Drivers () {
             image="https://media.istockphoto.com/id/805012064/es/foto/retrato-de-hombre-hispano-maduro.jpg?s=612x612&w=0&k=20&c=Attj_f3-u7FnCZT_-VQxhowhdMrgToyfG3hd19BiIlY="
             name="Emmanuel"
             lastName="Lucas Morales"
-            unity="KY-031" 
             id="1234"
             />
             <DriverCard 
             image="https://media.istockphoto.com/id/805012064/es/foto/retrato-de-hombre-hispano-maduro.jpg?s=612x612&w=0&k=20&c=Attj_f3-u7FnCZT_-VQxhowhdMrgToyfG3hd19BiIlY="
             name="Emmanuel"
             lastName="Lucas Morales"
-            unity="KY-031"
             id="1234"
             />  
             <button id="plus-button" onClick={() => navigate(`/kit/${kitId}/conductores/agregar`)}>

@@ -1,7 +1,12 @@
 import Driver from "../Driver";
 import './DriverImage.css'
 
-export default function DriverImage ({imageUrl, name}) {
+type props = {
+    imageUrl: string,
+    name: string
+}
+
+export default function DriverImage ({imageUrl, name}: props) {
     return <>
     {
         imageUrl ?

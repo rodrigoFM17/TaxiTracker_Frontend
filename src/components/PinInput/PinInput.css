@@ -1,0 +1,14 @@
+
+.container-pin {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1em;
+
+    & > button{
+        width: 100%;
+    }
+    & #pin{
+        width: 100%;
+    }
+}

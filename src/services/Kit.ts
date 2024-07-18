@@ -9,18 +9,22 @@ import { GeneralApiResponse } from "../models/GeneralApiResponse"
 
 
 
-export const getKits = async (userId:string): Promise<GeneralFetchResponse<Kit | Kit[]>> => {
-    const res = await get(apiKitsUrl,`kits/${userId}`) as GeneralApiResponse<EndpointKit>
+export const getKitsByUserId = async (userId:string): Promise<GeneralFetchResponse<Kit | Kit[]>> => {
+    const res = await get(apiKitsUrl,`kits/user/${userId}`) as GeneralApiResponse<EndpointKit>
     console.log(res)
     const adaptedResponse = adaptApiToLocalResponse(res, adaptEndpointToLocalKit)
     console.log(adaptedResponse)
     return adaptedResponse
 }
 
-export const addKit = async (kit:Kit): Promise<GeneralFetchResponse<Kit | Kit[]>> => {
-    const adaptedKit = adaptLocalToEndpointKit(kit)
-    console.log(adaptedKit)
-    const res = await post(apiKitsUrl,"kits", adaptedKit) as GeneralApiResponse<EndpointKit>
+export const getKit = async(kitId: string) : Promise<GeneralFetchResponse<Kit | Kit[]>> => {
+    const response = await get(apiKitsUrl, `kits/${kitId}`)
+    const adaptedResponse = adaptApiToLocalResponse(response, adaptEndpointToLocalKit)
+    return adaptedResponse
+}
+
+export const addKit = async (userId: string, kitLicense: string): Promise<GeneralFetchResponse<Kit | Kit[]>> => {
+    const res = await post(apiKitsUrl,`kits/${kitLicense}`, userId ) as GeneralApiResponse<EndpointKit>
     return adaptApiToLocalResponse<Kit | Kit[], EndpointKit>(res, adaptEndpointToLocalKit)
 }
 

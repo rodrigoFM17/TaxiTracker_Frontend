@@ -1,3 +1,7 @@
 .driver-image {
     border-radius: 50%;
 }
+
+.container-driver-image {
+    width: 100%;
+}
