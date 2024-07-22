@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Driver from '../Driver'
 import './InputImageFile.css'
 
@@ -8,18 +9,36 @@ type props = {
 
 export default function InputImageFile ({id, imageUrl}:props) {
 
+    const [currentImage, setCurrentImage] = useState<string>("")
+
     return <>
-    <input type='file' accept='image/*' name='image' className='input-image' id={id}/>
+    <input 
+    type='file' 
+    accept='image/*' 
+    name='image' 
+    className='input-image' 
+    onInput={(e) => {
+        setCurrentImage(URL.createObjectURL(e.target.files[0]))
+
+    }}
+    id={id}
+    />
     <label htmlFor={id}>
         {
-            imageUrl ?
+            currentImage ? 
+            <img src={currentImage} alt="imagen del conductor" />
+            : imageUrl ?
             <img src={imageUrl} alt="imagen del conductor" />
             :
             <Driver color='#292929' className='' />
         }
 
         <span className='hover-message'>
-            establecer foto
+            {
+                currentImage ? "cambiar seleccion"
+                : imageUrl ? "cambiar foto" 
+                : "establecer foto"
+            }
         </span>
         
     </label>

@@ -3,21 +3,25 @@ import UserMinus from "../../../components/UserMinus"
 import XMark from "../../../components/XMark"
 
 type props ={
+    id: string,
     name:string,
     lastName: string,
-    driversToDelete: string[]
+    driversToDelete: string[],
+    setDriversToDelete: any
 }
 
-export default function DriverItem ({name, lastName, driversToDelete}:props) {
+export default function DriverItem ({id, name, lastName, driversToDelete, setDriversToDelete}:props) {
 
     const [deleted, setDeleted] = useState<boolean>(false)
 
     useEffect(() => {
-        deleted ?
-        driversToDelete.push(name)
-        :
-        driversToDelete = driversToDelete.filter(driver => driver != name)
-    },[deleted])
+        if(deleted) {
+            driversToDelete.push(id)
+            setDriversToDelete(driversToDelete)
+        } else {
+            setDriversToDelete(driversToDelete.filter(driver => driver != id))
+        }
+        },[deleted])
     return <>
         <input 
         type="text" 

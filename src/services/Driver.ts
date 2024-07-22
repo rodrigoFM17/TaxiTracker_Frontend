@@ -1,5 +1,4 @@
 import { adaptEndpointToLocalDriver } from "../adapters/Driver/adaptEndpointToLocalDriver";
-import { adaptLocalToEndpointDriver } from "../adapters/Driver/adaptLocalToEndpointDriver";
 import { adaptApiToLocalResponse } from "../adapters/adaptApiToLocalResponse";
 import { Driver } from "../models/Driver/Driver";
 import { EndpointDriver } from "../models/Driver/EndpointDriver";
@@ -16,6 +15,12 @@ export const getDriversByKitId = async(kitId: string): Promise<GeneralFetchRespo
 
 export const getDriverById = async(driverId: string): Promise<GeneralFetchResponse<Driver | Driver[]>> => {
     const response = await get(apiKitsUrl, `drivers/${driverId}`)
+    const adaptedResponse = adaptApiToLocalResponse(response, adaptEndpointToLocalDriver)
+    return adaptedResponse
+}
+
+export const getDriverStatsById = async(driverId: string): Promise<GeneralFetchResponse<Driver | Driver[]>> => {
+    const response = await get(apiKitsUrl, `travels/data/${driverId}`)
     const adaptedResponse = adaptApiToLocalResponse(response, adaptEndpointToLocalDriver)
     return adaptedResponse
 }

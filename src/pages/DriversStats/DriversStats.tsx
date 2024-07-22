@@ -8,19 +8,40 @@ import RadarChart from './components/RadarChart'
 import car from '../../../public/car-side-solid.svg'
 import crash from '../../../public/car-burst-solid.svg'
 import star from '../../../public/star-solid.svg'
+import { useParams } from 'wouter'
+import { useEffect, useState } from 'react'
+import { getDriverStatsById } from '../../services/Driver'
+import { Driver } from '../../models/Driver/Driver'
 
 export default function DriverStats () {
 
-    const name = "Emanuel Lucas Morales"
+    const [driver, setDriver] = useState<Driver>({
+        image: "",
+        lastName: "",
+        name: "",
+        pin: "",
+    })
+    const {driverId} = useParams()
+
+    useEffect(()=> {
+        const fetchData = async () => {
+            if(driverId){
+                const response = await getDriverStatsById(driverId)
+                if(response.data && Array.isArray(response.data))
+                setDriver(response.data[0])
+            }
+        }
+        fetchData()
+    },[])
 
     return <section className='driver-stats'>
         <LogoHeader title='conductor'/>
 
-        <h2>{name}</h2>
+        <h2>{driver.name + " " + driver.lastName}</h2>
 
-        <DriverImage name={"Emmanuel"} imageUrl={"https://media.istockphoto.com/id/805012064/es/foto/retrato-de-hombre-hispano-maduro.jpg?s=612x612&w=0&k=20&c=Attj_f3-u7FnCZT_-VQxhowhdMrgToyfG3hd19BiIlY="} />
+        <DriverImage name={driver.name} imageUrl={driver.image} />
         <DriverGrade grade={0.84}/>
-        <RadarChart name={name} />
+        <RadarChart name={driver.name + " " + driver.lastName} />
         <DriverPlate plate={"KY-031"} />
         <CardInfo 
         value={25} 

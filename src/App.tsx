@@ -12,6 +12,7 @@ import KitConfiguration from './pages/KitConfiguration/KitConfiguration'
 import AddDriver from './pages/AddDriver/AddDriver'
 import { UserContextProvider } from './context/UserContext'
 import EditDriver from './pages/EditDriver/EditDriver'
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 
 function App() {
 
@@ -24,46 +25,48 @@ function App() {
     <>
       <UserContextProvider>
         <Router >
-          <Route
-          component={Login} 
-          path={'/login'}
-          />
-          <Route
-          component={KitLocation}
-          path={"/kit/:kitId/localizacion"}
-          />
-          <Route
-          component={Home}
-          path={'/'}
-          />
-          <Route
-          component={Drivers}
-          path={'/kit/:kitId/conductores'}
-          />
-          <Route
-          component={AddDriver}
-          path={"/kit/:kitId/conductores/agregar"}
-          />
-          <Route
-          component={EditDriver}
-          path={"/kit/:kitId/conductores/:driverId/actualizar"}
-          />
-          <Route
-          component={KitStats}
-          path={"/kit/:kitId/estadisticas"}
-          />
-          <Route
-          component={DriverStats}
-          path={'/kit/:kitId/conductores/:driverId/estadisticas'}
-          />
-          <Route
-          component={UserValoration}
-          path={'/kit/:kitId/valoracion'}
-          />
-          <Route
-          component={KitConfiguration}
-          path={'/kit/:kitId/configuracion'}
-          />
+          <ProtectedRoutes>
+            <Route
+            component={Login} 
+            path={'/login'}
+            />
+            <Route
+            component={KitLocation}
+            path={"/kit/:kitId/localizacion"}
+            />
+            <Route
+            component={Home}
+            path={'/'}
+            />
+            <Route
+            component={Drivers}
+            path={'/kit/:kitId/conductores'}
+            />
+            <Route
+            component={AddDriver}
+            path={"/kit/:kitId/conductores/agregar"}
+            />
+            <Route
+            component={EditDriver}
+            path={"/kit/:kitId/conductores/:driverId/actualizar"}
+            />
+            <Route
+            component={KitStats}
+            path={"/kit/:kitId/estadisticas"}
+            />
+            <Route
+            component={DriverStats}
+            path={'/kit/:kitId/conductores/:driverId/estadisticas'}
+            />
+            <Route
+            component={UserValoration}
+            path={'/kit/:kitId/valoracion'}
+            />
+            <Route
+            component={KitConfiguration}
+            path={'/kit/:kitId/configuracion'}
+            />
+          </ProtectedRoutes>
         </Router>
       </UserContextProvider>
     </>
