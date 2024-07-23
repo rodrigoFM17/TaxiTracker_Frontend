@@ -1,6 +1,7 @@
 
 export const apiKitsUrl = "http://localhost:3000"
 export const apiUsersUrl = "http://localhost:8080"
+export const apiGraphUrl = "http://localhost:4000"
 
 export const get = async (baseUrl:string, endpoint: string): Promise<any> => {
 
