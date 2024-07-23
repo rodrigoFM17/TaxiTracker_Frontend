@@ -82,7 +82,7 @@ const WeekChart: React.FC = () => {
         const fetchData = async () => {
             try {
                 const response = await get(apiGraphUrl, 'graphics/travels-week/' + kitId);
-                // const trips = response.data;
+                
                 setJsonData(response);
             } catch (error) {
                 console.error("Error fetching data:", error);

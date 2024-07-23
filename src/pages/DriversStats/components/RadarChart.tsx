@@ -3,19 +3,22 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 type props ={
-  name: string
+  name: string,
+  driverData: any
 }
 
+export default function RadarChart ({name, driverData}: props) {
+  const statsData = driverData.detailed_scores;
 
-
-export default function RadarChart ({name}: props) {
+  const graphData = [statsData.acceleration, statsData.inclination_angle, statsData.g_force_x, statsData.g_force_y, statsData.angular_velocity, statsData.deceleration, statsData.vibrations];
 
   const data = {
-    labels: ['aceleracion', 'inclinacion', 'valoracion', 'vel.angular', "desaceleracion", "vibracion"],
+    labels: ['Aceleración', 'Inclinación', 'Fuerza G en X', 'Fuerza G en Y', 'Vel.angular', "Desaceleración", "Vibración"],
     datasets: [
       {
         label: name,
-        data: [80, 90, 87, 92, 88, 95],
+        // data: [80, 90, 87, 92, 88, 95],
+        data: graphData,
         backgroundColor: 'rgba(247, 183, 49, 0.5)',
         borderColor: 'rgba(247, 183, 49)',
         borderWidth: 1,

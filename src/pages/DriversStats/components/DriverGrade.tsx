@@ -46,10 +46,10 @@ export default function DriverGrade ({grade}:props) {
     },[])
 
     return <figure className="driver-grade">
-        <div ref={figure}></div>
-        <div className="container-info">
-            <span>{grade * 100}</span>
-            <span>conduccion general</span>
-        </div>
+      <div ref={figure}></div>
+      <div className="container-info">
+        <span>{grade.toFixed(2)}</span>
+        <span>conduccion general</span>
+      </div>
     </figure>
 }

@@ -7,8 +7,6 @@ import { apiKitsUrl, get, post, put } from "./fetchApi"
 import { adaptApiToLocalResponse } from "../adapters/adaptApiToLocalResponse"
 import { GeneralApiResponse } from "../models/GeneralApiResponse"
 
-
-
 export const getKitsByUserId = async (userId:string): Promise<GeneralFetchResponse<Kit | Kit[]>> => {
     const res = await get(apiKitsUrl,`kits/user/${userId}`) as GeneralApiResponse<EndpointKit>
     console.log(res)
