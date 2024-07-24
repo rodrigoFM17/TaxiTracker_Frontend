@@ -1,61 +1,69 @@
 import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import './KitConfiguration.css'
 import Gears from "../../components/Gears";
-import { useState } from "react";
-import Edit from "../../components/Edit";
-import UserMinus from "../../components/UserMinus";
+import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
-import Driver from "../../components/Driver";
-import XMark from "../../components/XMark";
 import EditButton from "./components/EditButton";
 import EditInput from "./components/EditInput";
 import DriverItem from "./components/Driver";
-import { updateKit } from "../../services/Kit";
+import { getKit, updateKit } from "../../services/Kit";
 import { useParams } from "wouter";
-
-const KitConfig = {
-    name: "kit 1",
-    unity: "KY-03124",
-    drivers: [
-        {name: "Emmanuel", lastName: "Lucas Morales"},
-        {name: "Adrian Mauricio", lastName: "Hernandez Perez"},
-        {name: "Rodrigo", lastName: "Flores Morales"}
-    ]
-}
-
-type changes = {
-    name: string,
-    unity: string,
-    driversToDelete: string[]
-}
-const changesToDo:changes = {
-    name:"",
-    unity: "",
-    driversToDelete: []
-}
-
+import { Driver } from "../../models/Driver/Driver";
+import { Kit } from "../../models/Kit/Kit";
+import { deleteDriver, getDriversByKitId } from "../../services/Driver";
 
 export default function KitConfiguration () {
 
     const [editName, setEditName] = useState<boolean>(false)
     const [editUnity, setEditUnity] = useState<boolean>(false)
+    const [drivers, setDrivers] = useState<Driver[]>([])
+    const [driversToDelete, setDriversToDelete] = useState<string[]>([])
+    const [kit, setKit] = useState<Kit>({
+        name: "",
+        unity: "",
+        userId: "",
+    })
     const [confirm, setConfirm] = useState<boolean>(false)
     const {kitId} = useParams()
 
-    const applyChanges = async() => {
+    useEffect(() => {
+        const fetchData = async() => {
+            if(kitId){
+                const responseKit = await getKit(kitId)
+                if(responseKit.data && Array.isArray(responseKit.data))
+                    setKit(responseKit.data[0])
+                const responseDrivers = await getDriversByKitId(kitId)
+                if(responseDrivers.data && Array.isArray(responseDrivers.data))
+                    setDrivers(responseDrivers.data)
+
+            }
+        }
+        fetchData()
+    },[])
+
+    const applyChanges = async(e) => {
+        e.preventDefault()
         const newName = document.querySelector("#name") as HTMLInputElement
         const newUnity = document.querySelector("#unity") as HTMLInputElement
-
-        if(editName && newName) {
-            changesToDo.name = newName.value
+        
+        const updatedKit = {
+            unit_code: newUnity.value,
+            name: newName.value,
         }
-        if(editUnity && newUnity){
-            changesToDo.unity = newUnity.value
+        if(kitId){
+            const response = await updateKit(kitId, updatedKit)
+            console.log(response)
+            console.log(driversToDelete)
+            driversToDelete.forEach(async driver => {
+                if(driver){
+                    const response = await deleteDriver(driver)
+                    console.log(response)
+                }
+            })
+
+            history.back()
         }
 
-        console.log(changesToDo)
-        const response = await updateKit(kitId, changesToDo)
-        console.log(response)
     }
 
     return <>
@@ -67,30 +75,26 @@ export default function KitConfiguration () {
             <form>
                 <span>nombre del kit</span>
                 <div>
-                    <EditInput edit={editName} value={KitConfig.name} id="name"/>
+                    <EditInput edit={editName} value={kit.name} id="name"/>
                     <EditButton edit={editName} setEdit={setEditName}/>
                 </div>
                 <span>unidad del kit</span>
                 <div>
-                    <EditInput edit={editUnity} value={KitConfig.unity} id="unity"/>
+                    <EditInput edit={editUnity} value={kit.unity} id="unity"/>
                     <EditButton edit={editUnity} setEdit={setEditUnity}/>
                 </div>
                 <span>conductores</span>
                 <div>
                     {
-                        KitConfig.drivers.map(driver => (
+                        drivers.map(driver => (
                             <DriverItem 
+                            id={driver.id ? driver.id : ""}
                             name={driver.name} 
                             lastName={driver.lastName}
-                            driversToDelete={changesToDo.driversToDelete} 
+                            driversToDelete={driversToDelete}
+                            setDriversToDelete={setDriversToDelete} 
                             key={`driver${driver.name}`}
                             />
-                            // <>
-                            //     <input type="text" value={`${driver.name} ${driver.lastName}`} placeholder="" key={`input${driver.name}`} readOnly/>
-                            //     <button onClick={() => deleteUser(driver.name)} type="button">
-                            //         <UserMinus className="container-images" color="#525252" />
-                            //     </button>
-                            // </>
                         ))
                     }
                     
@@ -105,19 +109,6 @@ export default function KitConfiguration () {
                 </div>
             </form>
             <ConfirmModal confirm={confirm} onAccept={applyChanges} onCancel={setConfirm} />
-            {/* {
-                confirm && <Modal>
-                    <form>
-                        <span>¿Guardar los cambios?</span>
-                        <button onClick={() => setConfirm(false)}>
-                            No
-                        </button>
-                        <button className="button-invert" onClick={() => applyChanges()}>
-                            Si
-                        </button>
-                    </form>
-                </Modal>
-            } */}
 
         </section>
     </>
@@ -133,7 +124,7 @@ const ConfirmModal = ({confirm, onAccept, onCancel}: any) => {
         <button onClick={() => onCancel(false)}>
             No
         </button>
-        <button className="button-invert" onClick={() => onAccept()}>
+        <button className="button-invert" onClick={(e) => onAccept(e)}>
             Si
         </button>
     </form>

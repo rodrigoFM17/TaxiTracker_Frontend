@@ -51,22 +51,11 @@ export default function Drivers () {
                     />
                 ))
             }
-            <DriverCard 
-            image="https://media.istockphoto.com/id/805012064/es/foto/retrato-de-hombre-hispano-maduro.jpg?s=612x612&w=0&k=20&c=Attj_f3-u7FnCZT_-VQxhowhdMrgToyfG3hd19BiIlY="
-            name="Emmanuel"
-            lastName="Lucas Morales"
-            id="1234"
-            />
-            <DriverCard 
-            image="https://media.istockphoto.com/id/805012064/es/foto/retrato-de-hombre-hispano-maduro.jpg?s=612x612&w=0&k=20&c=Attj_f3-u7FnCZT_-VQxhowhdMrgToyfG3hd19BiIlY="
-            name="Emmanuel"
-            lastName="Lucas Morales"
-            id="1234"
-            />  
+            
             <button id="plus-button" onClick={() => navigate(`/kit/${kitId}/conductores/agregar`)}>
                 <Plus 
                 className="container-images" 
-                color="black"
+                color="#FDF1D6"
                 />
             </button>
         </section>

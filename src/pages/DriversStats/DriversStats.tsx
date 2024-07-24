@@ -11,6 +11,9 @@ import car from '../../../public/car-side-solid.svg';
 import crash from '../../../public/car-burst-solid.svg';
 import star from '../../../public/star-solid.svg';
 import { get, apiGraphUrl } from "../../services/fetchApi";
+import './DriverStats.css'
+import { getDriverStatsById } from '../../services/Driver'
+import { Driver } from '../../models/Driver/Driver'
 
 export default function DriverStats() {
     const [driverData, setDriverData] = useState<any>(null);
@@ -27,6 +30,24 @@ export default function DriverStats() {
                 console.error('Error fetching driver data:', error);
             }
         };
+    const [driver, setDriver] = useState<Driver>({
+        image: "",
+        lastName: "",
+        name: "",
+        pin: "",
+    })
+    const {driverId} = useParams()
+
+    useEffect(()=> {
+        const fetchData = async () => {
+            if(driverId){
+                const response = await getDriverStatsById(driverId)
+                if(response.data && Array.isArray(response.data))
+                setDriver(response.data[0])
+            }
+        }
+        fetchData()
+    },[])
 
         fetchGraphicData();
     }, []);
@@ -34,16 +55,6 @@ export default function DriverStats() {
     useEffect(() => {
         const fetchDriverData = async () => {
             try {
-            // "data": {
-            //     "driver_id": "be93897c-393c-416f-8361-2088e3078a58",
-            //     "name": "Diego",
-            //     "last_name": "Gordillo Lopez",
-            //     "image": "https://res.cloudinary.com/dip0n3pxv/image/upload/v1721261184/taxitracker/xymfeqqvxyjfmktdvjz8.png",
-            //     "average_rating": "N/A",
-            //     "unit_code": "KE-2004",
-            //     "total_crashes": 0,
-            //     "total_travels_per_day": "1.2500"
-            // }
                 const response = await get(apiGraphUrl, 'drivers/stats/' + driverId);
                 setDriverData(response.data);
             } catch (error) {
