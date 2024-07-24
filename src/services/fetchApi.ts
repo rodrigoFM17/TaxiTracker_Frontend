@@ -1,6 +1,6 @@
-export const apiKitsUrl = "http://localhost:4000"
-export const apiUsersUrl = "http://localhost:8080"
-export const apiGraphUrl = "http://localhost:4000"
+export const apiKitsUrl = "https://taxitracker-api-data.freemyip.com"
+export const apiUsersUrl = "https://taxitracker-api-users.freemyip.com"
+export const apiGraphUrl = "https://taxitracker-api-data.freemyip.com"
 
 export const get = async (baseUrl:string, endpoint: string): Promise<any> => {
     return fetch(`${baseUrl}/${endpoint}`)
