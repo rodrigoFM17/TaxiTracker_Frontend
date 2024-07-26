@@ -1,5 +1,4 @@
 import { adaptEndpointToLocalKit } from "../adapters/Kit/adaptEndpointToLocalKit"
-import { adaptLocalToEndpointKit } from "../adapters/Kit/adaptLocalToEndpointKit"
 import { GeneralFetchResponse } from "../models/GeneralFetchResponse"
 import { EndpointKit } from "../models/Kit/EndpointKit"
 import { Kit } from "../models/Kit/Kit"

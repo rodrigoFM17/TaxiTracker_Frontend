@@ -10,7 +10,9 @@ export default function DriverImage ({imageUrl, name}: props) {
     return <>
     {
         imageUrl ?
-        <img src={imageUrl} alt={`imagen de perfil de ${name}`} className="driver-image" />
+        <div className="container-driver-image">
+            <img src={imageUrl} alt={`imagen de perfil de ${name}`} className="driver-image" />
+        </div>
         : 
         <Driver color='#FDF1D6' className='default-image' /> 
     }

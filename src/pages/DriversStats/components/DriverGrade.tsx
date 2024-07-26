@@ -24,7 +24,7 @@ const config = {
         transform: null
       },
     },
-    step: (state, shape) => {
+    step: (state: any, shape:any) => {
         shape.path.setAttribute("stroke", state.color);
         shape.path.setAttribute("stroke-width", state.width);
         shape.setText(Math.round(shape.value() * 100) + ' %');

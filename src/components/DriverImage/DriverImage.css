@@ -1,7 +1,12 @@
 .driver-image {
     border-radius: 50%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .container-driver-image {
-    width: 100%;
+    width: 35vmax;
+    height: 35vmax;
+    margin: 0 auto;
+    display: flex;
 }

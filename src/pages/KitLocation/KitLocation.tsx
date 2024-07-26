@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react"
-import { Map, tileLayer, marker, icon, Point, Marker } from 'leaflet'
+import { useContext, useEffect, useRef, useState } from "react"
+import { Map, tileLayer, marker, icon, Marker, LatLngExpression } from 'leaflet'
 import './KitLocation.css'
 import arrow from '../../../public/arrow-left-solid.svg'
 import logo from '../../../public/logo_taxi.png'
-import { socket } from "../../services/socketio"
 import { getDriverById } from "../../services/Driver"
 import { Driver } from "../../models/Driver/Driver"
+import { connectSocket } from "../../services/socketio"
+import UserContext from "../../context/UserContext"
+import { useParams } from "wouter"
 const taxiImage = '../../../public/taxi.png'
 const shadow = '../../../public/sombra.png'
 
@@ -22,58 +24,103 @@ const taxiIcon = icon({
 export default function KitLocation () {
 
   const [map, setMap] = useState<Map>()
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [isConnected, setIsConnected] = useState(false);
   const [driverId, setDriverId] = useState<string | null>(null)
-  const [driver, setDriver] = useState<Driver | null>({
-    image: "https://media.istockphoto.com/id/805012064/es/foto/retrato-de-hombre-hispano-maduro.jpg?s=612x612&w=0&k=20&c=Attj_f3-u7FnCZT_-VQxhowhdMrgToyfG3hd19BiIlY=",
-    lastName: "Lucas Morales",
-    name: "Emmanuel",
-    pin: "2004"
-  })
+  const [driver, setDriver] = useState<Driver | null>()
   const mapInit = useRef<boolean>(false)
   const kitMarker = useRef<Marker | null>(null)
+  const {user} = useContext(UserContext)
+  const {kitId} = useParams()
+
+  // function onConnect() {
+  //   setIsConnected(true);
+  //   console.log('connected to ws')
+  // }
+
+  // function onDisconnect() {
+  //   setIsConnected(false);
+  //   console.log('disconnected from ws')
+  // }
+
+  // function onRefreshLocation(data: any) {
+  //   console.log(data.data)
+  //   if(!kitMarker.current && map){
+  //     kitMarker.current = marker([data.data.location["lat"], data.data.location["long"]], {icon: taxiIcon}).addTo(map);
+  //     map.setView([data.data.location.lat, data.data.location.long])
+  //     if(!driver)
+  //       setDriverId(data.data.driver.id)
+  //   } else if (kitMarker.current && map) {
+  //     kitMarker.current.setLatLng([data.data.location["lat"], data.data.location["long"]])
+  //     map.setView([data.data.location.lat, data.data.location.long])
+  //   }
+  // }
+
 
   useEffect(() => {
+    const socket = connectSocket(user.token, kitId? kitId : "")
+    socket.connect()
+
+    function onConnect() {
+        setIsConnected(true);
+        console.log('connected to ws')
+      }
+    
+      function onDisconnect() {
+        setIsConnected(false);
+        console.log('disconnected from ws')
+      }
+    
+      function onRefreshLocation(data: any) {
+        console.log(data)
+        const [latitude, longitude] = data.coordinates.split(",")
+        const coordinates: LatLngExpression = [latitude, longitude]
+        if(!driverId)
+          setDriverId(data.driver_id)
+        if(!kitMarker.current && map){
+          kitMarker.current = marker(coordinates, {icon: taxiIcon}).addTo(map);
+          map.setView(coordinates)
+        } else if (kitMarker.current && map) {
+          kitMarker.current.setLatLng(coordinates)
+          map.setView(coordinates)
+        }
+      }
+
+      socket.on('connect', onConnect);
+      socket.on('disconnect', onDisconnect);
+      socket.on('refresh:kit_location', onRefreshLocation);
+
+      return () => {
+        socket.off('connect', onConnect);
+        socket.off('disconnect', onDisconnect);
+        socket.off('refresh:kit_location', onRefreshLocation);
+        socket.disconnect()
+      };
+      
+  }, [])
+
+  useEffect(()=> {
     const fetchData = async () => {
       if(driverId){
-        const response = await getDriverById(driverId)
+        const response = await getDriverById(driverId)  
         if(response.status == "success" && Array.isArray(response.data))
           setDriver(response.data[0])
       }
     }; fetchData()
+  },[driverId])
 
-  }, [driverId])
+    // useEffect(() => {
+    //   if(socket) {
+    //     socket.on('connect', onConnect);
+    //     socket.on('disconnect', onDisconnect);
+    //     socket.on('refresh:kit_location', onRefreshLocation);
 
-  useEffect(() => {
-    function onConnect() {
-      setIsConnected(true);
-    }
-
-    function onDisconnect() {
-      setIsConnected(false);
-    }
-
-    function onRefreshLocation(data: any) {
-      if(!kitMarker.current && map){
-        kitMarker.current = marker([data.coordinates["latitude"], data.coordinates["longitude"]], {icon: taxiIcon}).addTo(map);
-        if(!driver)
-          setDriverId(data.driver_id)
-      } else if (kitMarker.current && map) {
-        kitMarker.current.setLatLng([data.coordinates["latitude"], data.coordinates["longitude"]])
-      }
-      
-    }
-
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-    socket.on('refresh:kit_location', onRefreshLocation);
-
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.off('refresh:kit_location', onRefreshLocation);
-    };
-  }, []);
+    //     return () => {
+    //       socket.off('connect', onConnect);
+    //       socket.off('disconnect', onDisconnect);
+    //       socket.off('refresh:kit_location', onRefreshLocation);
+    //     };
+    //   }
+    // },[socket])
 
   useEffect(() => {
 
@@ -111,7 +158,7 @@ export default function KitLocation () {
         <img src={logo} alt="logo TaxiTracker" />
       </header>
       {
-        (isConnected && driver) && <figure className="currentDriver">
+        (isConnected && driverId && driver) && <figure className="currentDriver">
           <img src={driver.image} alt={`imagen de ${driver.name} ${driver.lastName}`} />
           <span>{driver.name} {driver.lastName}</span>
         </figure>

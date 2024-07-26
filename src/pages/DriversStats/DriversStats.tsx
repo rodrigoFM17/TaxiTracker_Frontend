@@ -12,8 +12,6 @@ import crash from '../../../public/car-burst-solid.svg';
 import star from '../../../public/star-solid.svg';
 import { get, apiGraphUrl } from "../../services/fetchApi";
 import './DriverStats.css'
-import { getDriverStatsById } from '../../services/Driver'
-import { Driver } from '../../models/Driver/Driver'
 
 export default function DriverStats() {
     const [driverData, setDriverData] = useState<any>(null);
@@ -30,24 +28,6 @@ export default function DriverStats() {
                 console.error('Error fetching driver data:', error);
             }
         };
-    const [driver, setDriver] = useState<Driver>({
-        image: "",
-        lastName: "",
-        name: "",
-        pin: "",
-    })
-    const {driverId} = useParams()
-
-    useEffect(()=> {
-        const fetchData = async () => {
-            if(driverId){
-                const response = await getDriverStatsById(driverId)
-                if(response.data && Array.isArray(response.data))
-                setDriver(response.data[0])
-            }
-        }
-        fetchData()
-    },[])
 
         fetchGraphicData();
     }, []);

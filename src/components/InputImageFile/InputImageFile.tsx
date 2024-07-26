@@ -17,7 +17,7 @@ export default function InputImageFile ({id, imageUrl}:props) {
     accept='image/*' 
     name='image' 
     className='input-image' 
-    onInput={(e) => {
+    onInput={(e:any) => {
         setCurrentImage(URL.createObjectURL(e.target.files[0]))
 
     }}

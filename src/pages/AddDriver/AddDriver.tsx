@@ -4,8 +4,9 @@ import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import { createDriver } from "../../services/Driver";
 import './AddDriver.css'
 import { generatePin } from "./utils/generatePin";
+import { FormEvent } from "react";
 
-const fetchAddDriver = async(kitId: string, e) => {
+const fetchAddDriver = async(kitId: string, e: FormEvent) => {
     e.preventDefault()
     const image = document.querySelector("#driver-photo") as HTMLInputElement
     const name = document.querySelector("#name") as HTMLInputElement

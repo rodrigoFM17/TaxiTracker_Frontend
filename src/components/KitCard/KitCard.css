@@ -2,6 +2,7 @@
 .kit-card{
     border-radius: 5px;
     background-color: var(--y-500);
+    width: 100%;
 }
 
 .kit-card h3 {

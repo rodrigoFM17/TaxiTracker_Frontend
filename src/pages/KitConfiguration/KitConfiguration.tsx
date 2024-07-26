@@ -1,7 +1,7 @@
 import LogoHeader from "../../components/LogoHeader/LogoHeader";
 import './KitConfiguration.css'
 import Gears from "../../components/Gears";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import EditButton from "./components/EditButton";
 import EditInput from "./components/EditInput";
@@ -41,7 +41,7 @@ export default function KitConfiguration () {
         fetchData()
     },[])
 
-    const applyChanges = async(e) => {
+    const applyChanges = async(e:FormEvent) => {
         e.preventDefault()
         const newName = document.querySelector("#name") as HTMLInputElement
         const newUnity = document.querySelector("#unity") as HTMLInputElement

@@ -5,8 +5,7 @@ export const adaptLocalToEndpointDriver = (driver: Driver):EndpointDriver => {
     if(driver.id && driver.pin) {
         return {
             id: driver.id,
-            file: driver.image,
-            kit_id: driver.kitId,
+            image: driver.image,
             last_name: driver.lastName,
             name: driver.name,
             pin: driver.pin
@@ -14,10 +13,10 @@ export const adaptLocalToEndpointDriver = (driver: Driver):EndpointDriver => {
         }
     } else {
         return {
-            kit_id: driver.kitId,
             last_name: driver.lastName,
             name: driver.name,
-            pin: driver.pin
+            pin: driver.pin,
+            image: driver.image
         }
     }
 }

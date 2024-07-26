@@ -6,7 +6,7 @@ import GPSMarker from '../GPSMarker'
 import { navigate } from 'wouter/use-browser-location'
 import { Kit } from '../../models/Kit/Kit'
 
-export default function KitCard ({name, unity, userId, id}:Kit) {
+export default function KitCard ({name, unity, id}:Kit) {
 
     return <>
         <article className="kit-card">

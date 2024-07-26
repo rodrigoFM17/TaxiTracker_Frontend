@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import User from "../models/User/User";
 
 const UserContext = createContext<any>({})
